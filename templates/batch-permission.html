@@ -10,11 +10,14 @@
         </select>
     </div>
     <hr/>
-
+    <div class="form-group">
+        <label>Change individual player permissions?</label>
+        <input id="player-change" type="checkbox" name="agree" title="Change Player Permissions"/>
+    </div>
     {{#each users}}
     <div class="form-group{{#if this.hidden}} hidden{{/if}}">
         <label>{{this.user.name}}</label>
-        <select name="{{this.user._id}}">
+        <select class="perm-select" disabled name="{{this.user._id}}">
             {{#select this.level}}
             {{#each ../levels}}
             <option value="{{this.level}}">{{this.name}}</option>

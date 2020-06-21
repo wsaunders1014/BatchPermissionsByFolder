@@ -51,22 +51,41 @@ class BatchPermissionChange extends BaseEntitySheet {
   /** @override */
 	async _updateObject(event, formData) {
 	    event.preventDefault();
-	    console.log(event, formData)
 	    if (!game.user.isGM) throw "You do not have the ability to configure permissions.";
-	    console.log('submit?')
 	    // // Collect user permissions
-	    const perms = {};
+	    let changePlayer = formData.agree;
+	    delete formData.agree;
+	    
 	    let entries = game.folders.get(this.entity.data.folder).content;
 	    entries.forEach((entry)=>{
-	    	for ( let [user, level] of Object.entries(formData) ) {
-		      if ( name !== "default" && level === "-1" ) {
-		        delete perms[user];
-		        continue;
-		      }
-		      perms[user] = parseInt(level);
+	    	let perms = {};
+	    	if(!changePlayer){
+				//Construct perm object from existing entry permission
+				for ( let [gUser, gLevel] of Object.entries(entry.data.permission) ) {
+					console.log(gUser,gLevel)
+					perms[gUser] = parseInt(gLevel);
+				}
+				//Overwrite old Default with new one
+				perms['default']=parseInt(formData.default);
+			}else{
+		    	for ( let [user, level] of Object.entries(formData) ) {
+		    		console.log(user,level)
+		    		/*
+		    			If changePlayer is false, we need to grab the original permissions, because
+		    			we are only changing default, and they'll be deleted.
+		    		*/
+	    		
+	    		
+			      if ( name !== "default" && level === "-1" ) {
+			        delete perms[user];
+			        continue;
+			      }
+			      perms[user] = parseInt(level);
+			  }
+		     // console.log(perms)
 		    }
 
-		    // // Update the entity
+		    // Update the entity
 		    return entry.update({permission: perms}, {diff: false});
 	    })
 	    
@@ -74,7 +93,8 @@ class BatchPermissionChange extends BaseEntitySheet {
 }
 
 Hooks.on('init',()=>{
-	//Object.define(Journal)
+	
+	
 })
 Hooks.on('getItemDirectoryFolderContext', (html,options)=>{
 
@@ -89,7 +109,7 @@ Hooks.on('getItemDirectoryFolderContext', (html,options)=>{
                 let folder = game.folders.get(folderID);
                 if(folder.content.length > 0)
                		new BatchPermissionChange(folder.content[0]).render(true);
-                console.log(folderID)
+               
             }
 	})
 });
@@ -106,7 +126,7 @@ Hooks.on('getRollTableDirectoryFolderContext', (html,options)=>{
                 let folder = game.folders.get(folderID);
                 if(folder.content.length > 0)
                		new BatchPermissionChange(folder.content[0]).render(true);
-                console.log(folderID)
+               
             }
 	})
 });
@@ -123,35 +143,25 @@ Hooks.on('getJournalDirectoryFolderContext', (html,options)=>{
                 let folder = game.folders.get(folderID);
                 if(folder.content.length > 0)
                		new BatchPermissionChange(folder.content[0]).render(true);
-                console.log(folderID)
+                
             }
 	})
 });
-console.log('batch permissions')
+
 
 
 Hooks.on('renderBatchPermissionChange',(object,html,entity)=>{
 	$('#batch-permission-control').on('submit',(e)=>{
 		e.preventDefault();
-		console.log('submit')
+		
+	});
+	$('#player-change').on('change',(e)=>{
+	
+		if($('#player-change')[0].checked){
+			$('.perm-select').removeAttr('disabled')
+		}else{
+			$('.perm-select').attr('disabled','disabled')
+		}
+
 	})
 })
-
-/*
-getEntryContext(html, options) {
-	options.push({
-    name: "Split Journal",
-    icon: '<i class="fas fa-list-ul"></i>',
-    condition: game.user.isGM,
-    callback: header => {
-        let entityId = header.attr("data-entity-id");
-        let entity = game.journal.get(entityId);
-        new FurnaceSplitJournal(entity).render(true);
-
-    }
-})
-
-Folder ID: "LMvCOPgt7QKwYxAD"
-        */
-
-    
