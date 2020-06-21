@@ -9,8 +9,8 @@
   "scripts": [
   	"batchpermissions.js"
   ],
-  "changelog":"https://raw.githubusercontent.com/wsaunders1014/ShowDragDistance/master/README.md",
-  "url":"https://github.com/wsaunders1014/showdragdistance",
-  "manifest":"https://raw.githubusercontent.com/wsaunders1014/showdragdistance/master/module.json",
-  "download":"https://github.com/wsaunders1014/showdragdistance/archive/master.zip"
+  "changelog":"https://raw.githubusercontent.com/wsaunders1014/BatchPermissionsByFolder/master/README.md",
+  "url":"https://github.com/wsaunders1014/BatchPermissionsByFolder",
+  "manifest":"https://raw.githubusercontent.com/wsaunders1014/BatchPermissionsByFolder/master/module.json",
+  "download":"https://github.com/wsaunders1014/BatchPermissionsByFolder/archive/master.zip"
 }
