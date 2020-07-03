@@ -1,11 +1,11 @@
 {
   "name": "BatchPermissionsByFolder",
   "title": "Batch Permissions By Folder",
-  "description": "Change the permissions of Journal Entries, Roll Tables, and Items by the folder. Will overwrite individual permissions.",
+  "description": "Update: Added Actor Folders. \nChange the permissions of all entities inside a folder. Works for Actors, Items, Journal Entries, and Roll Tables. Will overwrite individual permissions.",
   "authors": [{"name":"Will Saunders","email":"willsaunders1014@gmail.com" }],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "minimumCoreVersion": "0.6.2",
-  "compatibleCoreVersion":"0.6.2",
+  "compatibleCoreVersion":"0.6.4",
   "scripts": [
   	"batchpermissions.js"
   ],

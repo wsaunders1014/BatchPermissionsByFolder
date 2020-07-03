@@ -1,4 +1,8 @@
 # BatchPermissionsByFolder
+
+# 0.0.2 Update
+- Added Actor Folder permission changes.
+
 Adds a context option to folders in Items, Journals, and RollTables to change the permission of each entity(Foundry's codeword for Item, Journal Entry, or Roll Table) inside the folder.
 
 # WARNING: This will overwrite every permission inside the folder and is irreversible.

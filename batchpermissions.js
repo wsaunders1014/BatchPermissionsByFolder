@@ -147,8 +147,40 @@ Hooks.on('getJournalDirectoryFolderContext', (html,options)=>{
             }
 	})
 });
+Hooks.on('getSceneDirectoryFolderContext', (html,options)=>{
 
+	console.log('test',html,options)
+	options.push({
+		name: "Batch Change Permissions",
+		icon: '<i class="fas fa-check-square"></i>',
+		condition: game.user.isGM,
+		callback: header => {
+				
+                let folderID = header.parent().attr("data-folder-id");
+                let folder = game.folders.get(folderID);
+                if(folder.content.length > 0)
+               		new BatchPermissionChange(folder.content[0]).render(true);
+                
+            }
+	})
+});
+Hooks.on('getActorDirectoryFolderContext', (html,options)=>{
 
+	console.log('test',html,options)
+	options.push({
+		name: "Batch Change Permissions",
+		icon: '<i class="fas fa-check-square"></i>',
+		condition: game.user.isGM,
+		callback: header => {
+				
+                let folderID = header.parent().attr("data-folder-id");
+                let folder = game.folders.get(folderID);
+                if(folder.content.length > 0)
+               		new BatchPermissionChange(folder.content[0]).render(true);
+                
+            }
+	})
+});
 
 Hooks.on('renderBatchPermissionChange',(object,html,entity)=>{
 	$('#batch-permission-control').on('submit',(e)=>{
